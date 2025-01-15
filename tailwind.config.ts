@@ -33,6 +33,9 @@ export default {
         'fssubheading': '1.2rem',
         'fs1.3':'1.3rem'
       },
+      fontFamily:{
+        'LatoFont': "'Lato', sans-serif"
+      },
     },
     container: {
       padding: {

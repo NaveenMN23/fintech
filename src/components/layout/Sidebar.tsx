@@ -1,37 +1,42 @@
 "use client";
 
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { TiHome } from "react-icons/ti";
 import { RiSettings5Fill } from "react-icons/ri";
+import Link from 'next/link';
 
-const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef}) => {
-  // const [isOpen, setIsOpen] = useState(false); // State to toggle sidebar on mobile
+const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef, currentPage, handleMenuClick}) => {
+  
+  const [active, setActive] = useState(currentPage);
 
-  // const toggleSidebar = () => {
-  //   setIsOpen(!isOpen);
-  // };
+  const activeTab = (menu: { icon?: JSX.Element; name: string; route: string; id: number; }) => {
+    setActive(menu.route);
+  }
 
-  const [activeIdx, setActiveIdx] = useState(1);
-
-//   const router = useRouter();
-
-  const activeTab = (id: number) => {
-    setActiveIdx(id);
-    // handleMenuClick(id);
-    // router.push('/dashboard');
+  const handleClick = (menu: { icon?: JSX.Element; name: string; route: string; id: number; }) => {
+    activeTab(menu);
+    handleMenuClick(menu)
   }
 
   const menus = [{
     icon: <TiHome/>,
     name: 'Dashboard',
+    route: "/",
     id:1
   },{
     icon: <RiSettings5Fill />,
     name: 'Settings',
+    route: "/settings",
     id:2
   }] 
+
+  // const dispatch = useAppDispatch();
+
+  // const handleMenuClick = (menu: { icon?: JSX.Element; name: string; route?: string; id: number; }) => {
+  //   dispatch(details(menu.name));
+  //   activeTab(menu.id)
+  // }
 
   return (
     <div className="flex fixed h-full">
@@ -46,7 +51,7 @@ const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef}) => {
         {/* Sidebar Menu Items */}
         <ul>
             <li className="flex gap-x-5 justify-center items-center h-[8vh]">
-                <Image src={"/task.svg"} alt="Logo" width={25} height={25}/>
+                <Image src={"/applogo/task.svg"} alt="Logo" width={25} height={25}/>
                 <div className="font-bold text-fslogo text-appGray">Soar Task</div> 
                 <button className="text-[2rem] lg:hidden" onClick={toggleSidebar}>
                   &times;
@@ -54,11 +59,13 @@ const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef}) => {
             </li>
             { menus.map((menu) => (
               <li key={menu.id}>
-                <div className={`py-[0.75rem] flex gap-x-5 justify-left items-center cursor-pointer hover:text-appBlack ${activeIdx === menu.id && "text-appBlack"}`} onClick={() => activeTab(menu.id)}>
-                  <span className={`h-[3rem] w-[0.3rem] rounded-tr-[0.375rem] rounded-br-[0.375rem] hover:bg-appBlack ${activeIdx === menu.id && "bg-appBlack"}`}></span>
-                  <div>{menu.icon}</div>
-                  <div className=''>{menu.name}</div>
-                </div>
+                <Link href={menu.route}>
+                  <div className={`py-[0.75rem] flex gap-x-5 justify-left items-center cursor-pointer hover:text-appBlack ${active === menu.route && "text-appBlack"}`} onClick={() => handleClick(menu)}>
+                    <span className={`h-[3rem] w-[0.3rem] rounded-tr-[0.375rem] rounded-br-[0.375rem] hover:bg-appBlack ${active === menu.route && "bg-appBlack"}`}></span>
+                    <div className={`${active === menu.route ? "text-appBlack" : "text-appLightGray"}`}>{menu.icon}</div>
+                    <div className={`${active === menu.route ? "text-appBlack" : "text-appLightGray"}`}>{menu.name}</div>
+                  </div>
+                </Link>
               </li>
             ))}
         </ul>

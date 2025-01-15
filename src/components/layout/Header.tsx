@@ -1,14 +1,19 @@
 "use client";
 
+import { useAppSelector } from "@/store/hooks";
+import { RootState } from "@/store/store";
 import Image from "next/image";
 import { MouseEventHandler } from "react";
 
 interface HeaderProps {
-  title: string,
+  title:string;
   toggleSidebar: MouseEventHandler<HTMLButtonElement>
 }
 
-const Header: React.FC<HeaderProps> = ({title, toggleSidebar}) => {
+const Header: React.FC<HeaderProps> = ({title,toggleSidebar}) => {
+
+    // const title = useAppSelector((state: RootState) => state.details.title)
+
     return (
       <header className="flex items-center justify-between bg-appWhite text-appGray w-full h-[8vh] container md:items-center">
         <button className="text-[1.8rem] cursor-pointer lg:hidden" onClick={toggleSidebar}>
