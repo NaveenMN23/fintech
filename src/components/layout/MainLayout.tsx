@@ -11,7 +11,8 @@ const menus = {
     "/":'Dashboard',
     "/dashboard":'Dashboard',
     "/settings":'Settings',
-}
+  }
+
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
@@ -40,6 +41,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           setSidebarOpen(!isSidebarOpen);
         };
 
+        const handleMenuClick = (menu: { name: React.SetStateAction<string>; }) => {
+            console.log(menu)
+            setTitle(menu.name)
+          }
+
         useEffect(() => {
             setHydrated(true);
           }, []);
@@ -48,7 +54,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex h-screen gap-x-1">
-        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} sidebarRef={sidebarRef} currentPage={pathname} />
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} sidebarRef={sidebarRef} handleMenuClick={handleMenuClick} currentPage={pathname} />
         <div className={`flex flex-col w-full lg:ml-64`}>
             <Header title={title} toggleSidebar={toggleSidebar}/>
             <div className={`container py-[2rem] w-full lg:ml-64"}`}>

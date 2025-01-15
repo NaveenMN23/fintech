@@ -6,7 +6,7 @@ import { TiHome } from "react-icons/ti";
 import { RiSettings5Fill } from "react-icons/ri";
 import Link from 'next/link';
 
-const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef, currentPage}) => {
+const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef, currentPage, handleMenuClick}) => {
   
   const [active, setActive] = useState(currentPage);
 
@@ -15,7 +15,8 @@ const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef, currentPage}
   }
 
   const handleClick = (menu: { icon?: JSX.Element; name: string; route: string; id: number; }) => {
-    activeTab(menu)
+    activeTab(menu);
+    handleMenuClick(menu)
   }
 
   const menus = [{
