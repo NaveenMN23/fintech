@@ -25,8 +25,8 @@ const options = {
   plugins: {
     legend: {
       display: true,
-      position: 'top',
-      align: 'end',
+      position: 'top' as const,
+      align: 'end' as const,
       labels: {
         usePointStyle: true,
         boxWidth: 10, // Size of the legend box

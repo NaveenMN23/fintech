@@ -9,9 +9,9 @@ import Link from 'next/link';
 interface SidebarProps {
   isOpen: boolean; // Whether the sidebar is open
   toggleSidebar: () => void; // Function to toggle sidebar
-  sidebarRef: RefObject<HTMLDivElement>; // Ref pointing to the sidebar
+  sidebarRef: RefObject<HTMLDivElement | null>; // Ref pointing to the sidebar
   currentPage: string; // Current active page
-  handleMenuClick: (menu: string) => void; // Function for menu clicks
+  handleMenuClick: (menu: { icon?: JSX.Element; name: string; route: string; id: number; }) => void; // Function for menu clicks
 }
 
 const Sidebar: React.FC<SidebarProps> = ({isOpen, toggleSidebar, sidebarRef, currentPage, handleMenuClick}) => {

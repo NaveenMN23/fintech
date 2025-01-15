@@ -42,18 +42,18 @@ const PieChart = () => {
         enabled: true,
       },
       datalabels: {
-        formatter: (value: number, context: { dataset: { data: []; }; }) => {
-          const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
+        formatter: (value: number, context: any) => {
+          const total = context.dataset.data.reduce((acc: number, curr: number) => acc + curr, 0);
           const percentage = ((value / total) * 100).toFixed(1) + "%";
           const label = context?.chart?.data.labels[context?.dataIndex];
           return `${label}\n${percentage}`; // Display value and percentage
         },
         color: "#fff", // Text color
         font: {
-          weight: "bold",
+          weight: "bold" as const,
         },
-        anchor: "end", // Position adjustment
-        align: "start", // Align text to slice
+        anchor: "end" as const, // Position adjustment
+        align: "start" as const, // Align text to slice
       },
     },
   };
