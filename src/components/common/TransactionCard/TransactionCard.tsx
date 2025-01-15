@@ -18,7 +18,7 @@ const TransactionCard:React.FC<TransactionCardProps> = ({id,text,createdAt,type,
                 <span className="text-appBlack text-[1rem]">{text}</span>
                 <span className="text-appSubBlue text-[0.95rem]">{moment(createdAt).format('DD MMMM YYYY')}</span>
             </div>
-            <div className={`${type === 'debit' ? 'text-appRed' : 'text-appGreen'}`}>{currency+amount}</div>
+            <div className={`${type === 'debit' ? 'text-appRed' : 'text-appGreen'}`}>{`${(type === 'debit' ? '-' : '+')}${currency}${amount}`}</div>
         </div>
     )
 }
