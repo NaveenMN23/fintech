@@ -46,7 +46,7 @@ const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef}) => {
         {/* Sidebar Menu Items */}
         <ul>
             <li className="flex gap-x-5 justify-center items-center h-[8vh]">
-                <Image src={"/task.svg"} alt="Logo" width={25} height={25}/>
+                <Image src={"/applogo/task.svg"} alt="Logo" width={25} height={25}/>
                 <div className="font-bold text-fslogo text-appGray">Soar Task</div> 
                 <button className="text-[2rem] lg:hidden" onClick={toggleSidebar}>
                   &times;
