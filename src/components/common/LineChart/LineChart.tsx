@@ -64,7 +64,13 @@ const LineChartGradient = () => {
     plugins: {
       filler: {
         propagate: false
-      }
+      },
+      datalabels: {
+        display: false,
+      },
+      legend: {
+        display:false,
+      },
     },
     interaction: {
       intersect: true

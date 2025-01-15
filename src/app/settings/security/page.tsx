@@ -2,7 +2,9 @@ import MaintenancePage from "@/components/common/Maintenance/Maintenance"
 
 const Security = () => {
     return (
-        <MaintenancePage/>
+        <main role="main" aria-labelledby="maintenance-page-heading">
+            <MaintenancePage/>
+        </main>
     )
 }
 

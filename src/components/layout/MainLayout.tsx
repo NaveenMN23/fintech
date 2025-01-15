@@ -4,8 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { usePathname } from "next/navigation";
-import { RiSettings5Fill } from "react-icons/ri";
-import { TiHome } from "react-icons/ti";
 
 const menus = {
     "/":'Dashboard',
@@ -42,7 +40,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         };
 
         const handleMenuClick = (menu: { name: React.SetStateAction<string>; }) => {
-            console.log(menu)
             setTitle(menu.name)
           }
 

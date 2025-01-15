@@ -1,6 +1,5 @@
 import Input from "@/components/atoms/Input/Input";
 import Label from "@/components/atoms/Label/Label";
-import moment from "moment";
 import React from "react";
 
 interface LabelInputPairProps {

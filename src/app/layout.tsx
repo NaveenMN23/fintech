@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from 'next/font/google'
+import { Inter, Lato } from 'next/font/google'
 import "./globals.css";
 import MainLayout from "@/components/layout/MainLayout";
 import StoreProvider from "@/store/provider";
 
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
+  subsets: ['latin', 'latin-ext', 'cyrillic', 'cyrillic-ext', 'greek', 'greek-ext', 'vietnamese'], // All subsets
+  variable: '--font-inter', // Define a CSS variable for the font
+  display: 'swap', // Ensures fast font rendering
 })
+
+const lato = Lato({
+  subsets: ['latin', 'latin-ext'], // Include desired subsets
+  display: 'swap', // Optional: Ensures faster font rendering
+  weight: ['100', '300', '400', '700', '900'], // Include desired weights
+});
 
 export const metadata: Metadata = {
   title: "Soar Task",
@@ -20,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={`${inter.className}${lato.className}`}>
       <body
         className={`bg-appLightWhite`}
       >

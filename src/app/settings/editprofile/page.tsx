@@ -4,12 +4,12 @@ import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input/Input";
 import LabelInputPair from "@/components/common/LabelInputPair/LabelInputPair";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiEditCircleFill } from "react-icons/ri";
 
 const EditProfile = () => {
 
-      const [profilePic, setProfilePic] = useState<string | null>(null);
+      const [_, setProfilePic] = useState<string | null>(null);
 
       const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -55,9 +55,9 @@ const EditProfile = () => {
                 <div className="col-span-1 flex flex-col gap-4">
                     <div className="flex flex-row">
                         <div>
-                            <Image src={'/profile/profilepic.svg'} alt="" width={90} height={90} className="max-w-full"/>
+                            <Image src={'/profile/profilepic.svg'} alt="" width={90} height={90} className="max-w-full" aria-labelledby="profile-picture-label"/>
                         </div>
-                        <label className="flex items-end -ml-6 cursor-pointer">
+                        <label htmlFor="upload" className="flex items-end -ml-6 cursor-pointer" aria-label="Edit profile picture">
                             <RiEditCircleFill size={30}/>
                             <Input
                                 type={"file"}
@@ -67,16 +67,9 @@ const EditProfile = () => {
                                 placeholder={""}
                                 className={`hidden`}
                                 required={false}
-                                onChange={handleFileUpload}     
+                                onChange={handleFileUpload}   
+                                aria-label="Upload new profile picture"  
                             />
-                            {/* <input
-                                id="upload"
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileUpload}
-                                className="hidden"
-                                mi
-                                /> */}
                         </label>
                     </div>
                 </div>
@@ -99,6 +92,7 @@ const EditProfile = () => {
                             maxLength={field.maxLength}
                             min={field.minLength}
                             max={field.maxLength}
+                            aria-labelledby={field.label}
                             />
                         </div>
                     ))}
@@ -106,7 +100,7 @@ const EditProfile = () => {
                 </div>
             </div>
             <div className="p-6 flex justify-end w-full">
-                <Button text={"Save"} type="submit" onClick={() => {}} />
+                <Button text={"Save"} className="px-12 py-4" type="submit" onClick={() => {}} aria-label="Save profile changes"/>
             </div>
         </form>
     )

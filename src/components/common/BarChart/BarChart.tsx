@@ -1,13 +1,12 @@
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-
 interface BarChartProps {
   data: {
-    withdraw: Array<Number>,
-    deposit: Array<Number>,
-    week: Array<String>,
-    labels: Array<String>
+    withdraw: Array<number>,
+    deposit: Array<number>,
+    week: Array<string>,
+    labels: Array<string>
   }
 }
 
