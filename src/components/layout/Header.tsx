@@ -15,11 +15,11 @@ const Header: React.FC<HeaderProps> = ({title,toggleSidebar}) => {
     // const title = useAppSelector((state: RootState) => state.details.title)
 
     return (
-      <header className="flex items-center justify-between bg-appWhite text-appGray w-full h-[8vh] container md:items-center">
+      <header className="flex flex-shrink-0 items-center bg-appWhite text-appGray w-full h-[8vh] container md:items-center">
         <button className="text-[1.8rem] cursor-pointer lg:hidden" onClick={toggleSidebar}>
           &#9776;
         </button>
-        <div className="font-semibold text-fsh2 text-appGray">{title}</div>
+        <div className="font-semibold text-fsh2 text-appGray flex w-full justify-center lg:justify-start">{title}</div>
       </header>
     );
   }

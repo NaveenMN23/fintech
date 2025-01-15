@@ -24,26 +24,30 @@ ChartJS.register(
   Filler
 );
 
-const LineChartGradient = () => {
-  const data = () => {
-    return {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-      datasets: [
-        {
-          label: "First dataset",
-          data: [33, 53, 85, 41, 44, 65],
-          fill: "start",
-          backgroundColor: (context: ScriptableContext<"line">) => {
-            const ctx = context.chart.ctx;
-            const gradient = ctx.createLinearGradient(0, 0, 0, 200);
-            gradient.addColorStop(0, "#2D60FF40");
-            gradient.addColorStop(1, "#2D60FF00");
-            return gradient;
-          },
-          borderColor: "#1814F3"
-        }
-      ]
-    };
+interface LineChartProps {
+  data: {
+    values: Array<number>,
+    labels: Array<string>
+  }
+}
+
+const LineChartGradient: React.FC<LineChartProps> = ({ data }) => {
+  const dataObj = {
+    labels: data.labels,
+    datasets: [
+      {
+        data: data.values,
+        fill: "start",
+        backgroundColor: (context: ScriptableContext<"line">) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+          gradient.addColorStop(0, "#2D60FF40");
+          gradient.addColorStop(1, "#2D60FF00");
+          return gradient;
+        },
+        borderColor: "#1814F3"
+      }
+    ]
   };
 
   const options = {
@@ -69,7 +73,7 @@ const LineChartGradient = () => {
         display: false,
       },
       legend: {
-        display:false,
+        display: false,
       },
     },
     interaction: {
@@ -79,7 +83,7 @@ const LineChartGradient = () => {
 
   return (
     <div className="h-[13rem]">
-      <Line data={data()} options={options} />
+      <Line data={dataObj} options={options} />
     </div>
   );
 }
