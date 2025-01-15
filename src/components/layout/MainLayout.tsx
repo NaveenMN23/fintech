@@ -23,8 +23,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         const sidebarRef = useRef<HTMLDivElement>(null);
 
         useEffect(() => {
-          const handleClickOutside = (event: any) => {
-            if (sidebarRef.current && !sidebarRef.current?.contains(event.target)) {
+          const handleClickOutside = (event: MouseEvent) => {
+            if (sidebarRef.current && !sidebarRef.current?.contains(event.target as Node)) {
               setSidebarOpen(false);
             }
           };

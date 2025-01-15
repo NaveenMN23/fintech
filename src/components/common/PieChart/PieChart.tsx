@@ -42,7 +42,7 @@ const PieChart = () => {
         enabled: true,
       },
       datalabels: {
-        formatter: (value: number, context: { dataset: { data: any[]; }; }) => {
+        formatter: (value: number, context: { dataset: { data: []; }; }) => {
           const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
           const percentage = ((value / total) * 100).toFixed(1) + "%";
           const label = context?.chart?.data.labels[context?.dataIndex];

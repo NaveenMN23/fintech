@@ -1,8 +1,8 @@
 "use client";
 
-import { useAppSelector } from "@/store/hooks";
-import { RootState } from "@/store/store";
-import Image from "next/image";
+// import { useAppSelector } from "@/store/hooks";
+// import { RootState } from "@/store/store";
+// import Image from "next/image";
 import { MouseEventHandler } from "react";
 
 interface HeaderProps {

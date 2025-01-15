@@ -4,12 +4,12 @@ import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input/Input";
 import LabelInputPair from "@/components/common/LabelInputPair/LabelInputPair";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RiEditCircleFill } from "react-icons/ri";
 
 const EditProfile = () => {
 
-      const [_, setProfilePic] = useState<string | null>(null);
+      const [, setProfilePic] = useState<string | null>(null);
 
       const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
