@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { TiHome } from "react-icons/ti";
 import { RiSettings5Fill } from "react-icons/ri";
+import Link from 'next/link';
 
 const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef}) => {
   // const [isOpen, setIsOpen] = useState(false); // State to toggle sidebar on mobile
@@ -26,10 +27,12 @@ const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef}) => {
   const menus = [{
     icon: <TiHome/>,
     name: 'Dashboard',
+    route: "/",
     id:1
   },{
     icon: <RiSettings5Fill />,
     name: 'Settings',
+    route: "/settings",
     id:2
   }] 
 
@@ -54,11 +57,13 @@ const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef}) => {
             </li>
             { menus.map((menu) => (
               <li key={menu.id}>
-                <div className={`py-[0.75rem] flex gap-x-5 justify-left items-center cursor-pointer hover:text-appBlack ${activeIdx === menu.id && "text-appBlack"}`} onClick={() => activeTab(menu.id)}>
-                  <span className={`h-[3rem] w-[0.3rem] rounded-tr-[0.375rem] rounded-br-[0.375rem] hover:bg-appBlack ${activeIdx === menu.id && "bg-appBlack"}`}></span>
-                  <div>{menu.icon}</div>
-                  <div className=''>{menu.name}</div>
-                </div>
+                <Link href={menu.route}>
+                  <div className={`py-[0.75rem] flex gap-x-5 justify-left items-center cursor-pointer hover:text-appBlack ${activeIdx === menu.id && "text-appBlack"}`} onClick={() => activeTab(menu.id)}>
+                    <span className={`h-[3rem] w-[0.3rem] rounded-tr-[0.375rem] rounded-br-[0.375rem] hover:bg-appBlack ${activeIdx === menu.id && "bg-appBlack"}`}></span>
+                    <div>{menu.icon}</div>
+                    <div className=''>{menu.name}</div>
+                  </div>
+                </Link>
               </li>
             ))}
         </ul>
