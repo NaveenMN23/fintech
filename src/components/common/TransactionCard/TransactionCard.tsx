@@ -18,7 +18,7 @@ const TransactionCard:React.FC<TransactionCardProps> = ({id,text,createdAt,type,
                 <span className="text-appBlack text-[0.8rem] md:text-[0.85rem] lg:text-[0.9rem] xl:text-[1rem]">{text}</span>
                 <span className="text-appSubBlue text-[0.75rem] md:text-[0.8rem] lg:text-[0.85rem] xl:text-[0.95rem]">{moment(createdAt).format('DD MMMM YYYY')}</span>
             </div>
-            <div className={`text-[0.75rem] md:text-[0.8rem] lg:text-[0.85rem] xl:text-[0.95rem] flex items-center ${type === 'debit' ? 'text-appRed' : 'text-appGreen'}`}>{`${(type === 'debit' ? '-' : '+')}${currency}${amount}`}</div>
+            <div className={`text-[0.75rem] md:text-[0.8rem] lg:text-[0.85rem] xl:text-[0.95rem] flex items-center ${type === 'debit' ? 'text-appRed' : 'text-appGreen'}`}>{`${(type === 'debit' ? '-' : '+')}${currency}${parseInt(amount).toLocaleString('US')}`}</div>
         </div>
     )
 }
