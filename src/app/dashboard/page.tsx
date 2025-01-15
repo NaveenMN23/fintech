@@ -124,7 +124,7 @@ const Dashboard = () => {
                     </div>
                     <div className="flex overflow-auto gap-[2rem]" aria-live="polite">
                         {cards.map((card, i) => (
-                            <Card key={card.id} className={`min-w-[22rem] h-[13rem] md:flex-row md:h-[15rem] rounded-3xl gap-y-8 flex-col ${i % 2 === 0 ? "bg-gradient-to-r from-cardDark to-[#0E0E11] border-cardDarkBorder border-1 text-appWhite" : "bg-cardLight border-cardLightBorder border-1 text-appGray"}`} aria-labelledby={`card-${card.id}-header`}>
+                            <Card key={card.id} className={`min-w-[22rem] h-[15rem] md:flex-row md:h-[15rem] rounded-3xl gap-y-8 flex-col ${i % 2 === 0 ? "bg-gradient-to-r from-cardDark to-[#0E0E11] border-cardDarkBorder border-1 text-appWhite" : "bg-cardLight border-cardLightBorder border-1 text-appGray"}`} aria-labelledby={`card-${card.id}-header`}>
                                 <BankCard index={i} {...card}></BankCard>
                                 {/* <BankCardLoader></BankCardLoader> */}
                             </Card>
@@ -133,7 +133,7 @@ const Dashboard = () => {
                 </div>
                 <div className="col-span-1 flex flex-col gap-4">
                     <header className="text-appGray text-fssubheading font-semibold">Recent Transaction</header>
-                    <Card className="p-6 overflow-auto bg-appWhite h-[13rem] md:h-[15rem]">
+                    <Card className="p-6 overflow-auto bg-appWhite h-[15rem] md:h-[15rem]">
                         <div className="flex flex-col gap-3">
                             {transactionsHistory.map((transaction, i) => (
                                 <TransactionCard key={transaction.id} {...transaction} aria-label={`Transaction ${i + 1}: ${transaction.type} of ${transaction.amount} ${transaction.currency}`}/>
@@ -145,13 +145,13 @@ const Dashboard = () => {
             <div className={`grid grid-cols-1 md:grid-cols-3 gap-4`}>
                 <div className="col-span-1 md:col-span-2 flex flex-col gap-4" aria-labelledby="weekly-activity">
                     <header className="text-appGray text-fssubheading font-semibold">Weekly Activity</header>
-                    <Card className="p-6 overflow-auto bg-appWhite h-[14rem] md:h-[17rem]" aria-label="Weekly activity chart">
+                    <Card className="p-6 overflow-auto bg-appWhite h-[17rem] md:h-[17rem]" aria-label="Weekly activity chart">
                         <BarChart data={barData}/>
                     </Card>
                 </div>
                 <div className="col-span-1 flex flex-col gap-4" aria-labelledby="expense-statistics">
                     <header className="text-appGray text-fssubheading font-semibold">Expense Statistics</header>
-                    <Card className="p-6 overflow-auto bg-appWhite h-[14rem] md:h-[17rem]" aria-label="Expense statistics pie chart">
+                    <Card className="p-6 overflow-auto bg-appWhite h-[17rem] md:h-[17rem]" aria-label="Expense statistics pie chart">
                         <PieChart/>
                     </Card>
                 </div>
@@ -159,18 +159,18 @@ const Dashboard = () => {
             <div className={`grid grid-cols-1 md:grid-cols-3 gap-4`}>
                 <div className="col-span-1 flex flex-col gap-4">
                     <header className="text-appGray text-fssubheading font-semibold">Quick Transfer</header>
-                    <Card className="p-6 overflow-auto bg-appWhite h-[14rem] md:h-[17rem]" aria-labelledby="quick-transfer">
+                    <Card className="p-6 overflow-auto bg-appWhite h-[17rem] md:h-[17rem]" aria-labelledby="quick-transfer">
                         <div className="flex flex-col gap-5">
                             <div className="flex items-center justify-between">
                                 <button className={`flex justify-start p-2 w-10 h-10 rounded-full text-appSubBlue box-shadow: 4px 4px 18px -2px #E7E4E8CC cursor-pointer  ${currentIndex > 0 ? "visible" : "invisible"}`} onClick={handlePrev} aria-label="Previous user">&lt;</button>
                                 <div className="relative w-full overflow-hidden">
                                     <div
-                                    className="flex gap-5 transition-transform duration-500"
-                                    style={{ transform: `translateX(-${currentIndex * 38}%)` }}
+                                    className={`flex gap-5 transition-transform duration-500 transform translate-x-[-${currentIndex * 7}rem]`}
+                                    // style={{ transform: `translateX(-${currentIndex * 7}rem)` }}
                                     aria-live="polite"
                                     >
                                         {quickTransfer.map((user,i) => (
-                                            <div key={user?.id} className={`flex flex-col p[1%] min-w-[32%]`}>
+                                            <div key={user?.id} className={`flex flex-col p[1%] min-w-[6rem]`}>
                                                 <Image src={user.picture} alt={user?.name[0]} width={70} height={70} className="flex items-center justify-center w-auto" aria-label={`${user.name}, ${user.designation}`}/>
                                                 <span className={`flex items-center justify-center w-auto text-[1rem] text-appBlack overflow-hidden text-ellipsis  whitespace-nowrap ${i === currentIndex ? "font-bold" : "font-normal"}`}>{user?.name?.slice(0,15)}</span>
                                                 <span className={`flex items-center justify-center w-auto text-[0.95rem] text-appSubBlue overflow-hidden text-ellipsis  whitespace-nowrap ${i === currentIndex ? "font-bold" : "font-normal"}`}>{user?.designation?.slice(0,15)}</span>
@@ -197,7 +197,7 @@ const Dashboard = () => {
                 </div>
                 <div className="col-span-1 md:col-span-2 flex flex-col gap-4">
                     <header className="text-appGray text-fssubheading font-semibold">Balance History</header>
-                    <Card className="p-6 overflow-auto bg-appWhite h-[14rem] md:h-[17rem]">
+                    <Card className="p-6 overflow-auto bg-appWhite h-[17rem] md:h-[17rem]">
                         <LineChartGradient />
                     </Card>
                 </div>
