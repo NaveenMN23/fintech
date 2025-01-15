@@ -106,7 +106,8 @@ const Dashboard = () => {
     const [amount, setAmount] = useState(0);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAmount(e.target.value)
+        const value = parseFloat(e.target.value);
+        setAmount(isNaN(value) ? 0 : value);
     }
 
     const handleSend = (amount: number) => {
