@@ -3,22 +3,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import { usePathname } from "next/navigation";
+import { RiSettings5Fill } from "react-icons/ri";
+import { TiHome } from "react-icons/ti";
 
-const page = {
-    1: 'Dashboard',
-    2: 'Setting'
-  }
-  
+const menus = {
+    "/":'Dashboard',
+    "/dashboard":'Dashboard',
+    "/settings":'Settings',
+}
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
-    const [activeTab, setActiveTab] = useState<number>(1);
-        const [title, setTitle] = useState<string>(page[activeTab])
-        const [isSidebarOpen, setSidebarOpen] = useState(false);
-        const sidebarRef = useRef(null);
-      
-      
-        // Close sidebar when clicking outside
+    const [hydrated, setHydrated] = useState(false);
+
+    const pathname = usePathname();
+
+    const [title, setTitle] = useState<string>(menus[pathname])
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+        const sidebarRef = useRef<HTMLDivElement>(null);
+
         useEffect(() => {
           const handleClickOutside = (event: any) => {
             if (sidebarRef.current && !sidebarRef.current?.contains(event.target)) {
@@ -35,26 +39,23 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         const toggleSidebar = () => {
           setSidebarOpen(!isSidebarOpen);
         };
-    
-        const handleMenuClick = (id:number) => {
-          console.log(id)
-          setActiveTab(id)
-        }
-      
+
         useEffect(() => {
-          setTitle(page[activeTab])
-        },[activeTab])
+            setHydrated(true);
+          }, []);
+        
+          if (!hydrated) return null; 
 
   return (
     <div className="flex h-screen gap-x-1">
-          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} sidebarRef={sidebarRef} />
-          <div className={`flex flex-col w-full lg:ml-64`}>
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} sidebarRef={sidebarRef} currentPage={pathname} />
+        <div className={`flex flex-col w-full lg:ml-64`}>
             <Header title={title} toggleSidebar={toggleSidebar}/>
             <div className={`container py-[2rem] w-full lg:ml-64"}`}>
-              {children}
+                {children}
             </div>
-          </div>
         </div>
+    </div>
   );
 };
 

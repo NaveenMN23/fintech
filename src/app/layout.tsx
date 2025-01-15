@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
 import "./globals.css";
 import MainLayout from "@/components/layout/MainLayout";
+import StoreProvider from "@/store/provider";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -23,9 +24,11 @@ export default function RootLayout({
       <body
         className={`bg-appLightWhite`}
       >
-        <MainLayout>
-          {children}
-        </MainLayout>
+          <StoreProvider>
+            <MainLayout>
+              {children}
+            </MainLayout>
+          </StoreProvider>
       </body>
     </html>
   );
