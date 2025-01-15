@@ -38,6 +38,9 @@ const options = {
         },
       }
     },
+    datalabels: {
+      display: false, // Disable datalabels on bars
+    },
   },
   scales: {
     x: {
