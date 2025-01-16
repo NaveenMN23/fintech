@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 
 const MaintenancePage = () => {
   return (
@@ -16,4 +16,4 @@ const MaintenancePage = () => {
   );
 };
 
-export default MaintenancePage;
+export default memo(MaintenancePage);

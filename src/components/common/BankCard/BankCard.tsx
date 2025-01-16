@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { memo } from "react";
 
 interface BankCardProps {
   index: number;
@@ -104,4 +105,4 @@ const BankCard: React.FC<BankCardProps> = ({
   );
 };
 
-export default BankCard;
+export default memo(BankCard);

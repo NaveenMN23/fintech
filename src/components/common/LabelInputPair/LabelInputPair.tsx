@@ -1,6 +1,6 @@
 import Input from "@/components/atoms/Input/Input";
 import Label from "@/components/atoms/Label/Label";
-import React from "react";
+import React, { memo } from "react";
 
 interface LabelInputPairProps {
   label: string; // Label text
@@ -54,4 +54,4 @@ const LabelInputPair: React.FC<LabelInputPairProps> = ({
   );
 };
 
-export default LabelInputPair;
+export default memo(LabelInputPair);

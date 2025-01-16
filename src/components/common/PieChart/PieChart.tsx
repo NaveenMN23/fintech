@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
@@ -66,4 +66,4 @@ const PieChart: React.FC<PieChartProps> = ({ data }) => {
   );
 };
 
-export default PieChart;
+export default memo(PieChart);

@@ -6,6 +6,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { memo } from "react";
 import { Bar } from "react-chartjs-2";
 
 interface BarChartProps {
@@ -103,4 +104,4 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
   );
 };
 
-export default BarChart;
+export default memo(BarChart);

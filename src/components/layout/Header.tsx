@@ -3,7 +3,7 @@
 // import { useAppSelector } from "@/store/hooks";
 // import { RootState } from "@/store/store";
 // import Image from "next/image";
-import { MouseEventHandler } from "react";
+import { memo, MouseEventHandler } from "react";
 
 interface HeaderProps {
   title: string;
@@ -28,4 +28,4 @@ const Header: React.FC<HeaderProps> = ({ title, toggleSidebar }) => {
   );
 };
 
-export default Header;
+export default memo(Header);

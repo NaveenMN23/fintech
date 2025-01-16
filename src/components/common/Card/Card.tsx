@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { memo, ReactNode } from "react";
 
 interface CardProps {
   className?: string;
@@ -8,6 +8,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ className, children }) => {
+
   return (
     <div className={`rounded-3xl ${className || "bg-appWhite"}`}>
       {children}
@@ -15,4 +16,4 @@ const Card: React.FC<CardProps> = ({ className, children }) => {
   );
 };
 
-export default Card;
+export default memo(Card);

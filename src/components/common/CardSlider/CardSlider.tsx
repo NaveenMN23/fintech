@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 
 interface CardSliderProps {
   currentIndex: number;
@@ -46,4 +46,4 @@ const CardSlider: React.FC<CardSliderProps> = ({
   );
 };
 
-export default CardSlider;
+export default memo(CardSlider);

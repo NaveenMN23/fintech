@@ -1,5 +1,6 @@
 import moment from "moment";
 import Image from "next/image";
+import { memo } from "react";
 
 interface TransactionCardProps {
   id: number;
@@ -34,4 +35,4 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   );
 };
 
-export default TransactionCard;
+export default memo(TransactionCard);

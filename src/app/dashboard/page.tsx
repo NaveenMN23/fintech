@@ -1,14 +1,11 @@
 "use client";
 
 import BankCard from "@/components/common/BankCard/BankCard";
-import BarChart from "@/components/common/BarChart/BarChart";
-import LineChartGradient from "@/components/common/LineChart/LineChart";
 import Card from "@/components/common/Card/Card";
 import Image from "next/image";
 import TransactionCard from "@/components/common/TransactionCard/TransactionCard";
 import { FaRegPaperPlane } from "react-icons/fa6";
 import { useState } from "react";
-import PieChart from "@/components/common/PieChart/PieChart";
 import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input/Input";
 import BankCardLoader from "@/components/common/BankCard/BankCardLoader";
@@ -18,6 +15,19 @@ import CardIcon from "@/components/atoms/CardIcon/CardIcon";
 import CardSlider from "@/components/common/CardSlider/CardSlider";
 import CardIconLoader from "@/components/atoms/CardIcon/CardIconLoader";
 import ErrorBoundary from "@/components/common/ErrorBoundary/ErrorBoundary";
+import dynamic from "next/dynamic";
+const BarChart = dynamic(() => import('@/components/common/BarChart/BarChart'), {
+  loading: () => <CardLoader/>,
+  ssr: false,
+});
+const LineChartGradient = dynamic(() => import('@/components/common/LineChart/LineChart'), {
+  loading: () => <CardLoader/>,
+  ssr: false,
+});
+const PieChart = dynamic(() => import('@/components/common/PieChart/PieChart'), {
+  loading: () => <CardLoader/>,
+  ssr: false,
+});
 
 const cards = [
   {
@@ -222,7 +232,7 @@ const Dashboard = () => {
             <ErrorBoundary
               fallback={<div>Unable to fetch weekly actiivty</div>}
             >
-              {barData ? <BarChart data={barData} /> : <CardLoader />}
+              {barData && <BarChart data={barData} />}
             </ErrorBoundary>
           </Card>
         </div>
@@ -240,7 +250,7 @@ const Dashboard = () => {
             <ErrorBoundary
               fallback={<div>Unable to fetch expense statistics</div>}
             >
-              {pieData ? <PieChart data={pieData} /> : <CardLoader />}
+              {pieData && <PieChart data={pieData} />}
             </ErrorBoundary>
           </Card>
         </div>
@@ -318,10 +328,8 @@ const Dashboard = () => {
             <ErrorBoundary
               fallback={<div>Unable to fetch balance history</div>}
             >
-              {lineChartData ? (
+              {lineChartData && (
                 <LineChartGradient data={lineChartData} />
-              ) : (
-                <CardLoader />
               )}
             </ErrorBoundary>
           </Card>

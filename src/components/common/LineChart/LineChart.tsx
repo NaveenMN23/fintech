@@ -12,6 +12,7 @@ import {
   Filler,
   ScriptableContext,
 } from "chart.js";
+import { memo } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -88,4 +89,4 @@ const LineChartGradient: React.FC<LineChartProps> = ({ data }) => {
   );
 };
 
-export default LineChartGradient;
+export default memo(LineChartGradient);

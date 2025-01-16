@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX, RefObject, useState } from "react";
+import { JSX, memo, RefObject, useState } from "react";
 import Image from "next/image";
 import { TiHome } from "react-icons/ti";
 import { RiSettings5Fill } from "react-icons/ri";
@@ -122,4 +122,4 @@ const Sidebar: React.FC<SidebarProps> = ({
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);
