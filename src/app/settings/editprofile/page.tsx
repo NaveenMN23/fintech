@@ -4,11 +4,12 @@ import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input/Input";
 import LabelInputPair from "@/components/common/LabelInputPair/LabelInputPair";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiEditCircleFill } from "react-icons/ri";
 
 const EditProfile = () => {
   const [, setProfilePic] = useState<string | null>(null);
+  const [hydrated, setHydrated] = useState(false);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -139,6 +140,15 @@ const EditProfile = () => {
     console.log(e, formData);
   };
 
+  useEffect(() => {
+    setHydrated(true);
+
+    // on unMount: clean up
+    return () => {  }
+  }, []);
+
+  if (!hydrated) return null;
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="p-6 grid grid-cols-1 md:grid-cols-[120px_1fr] gap-4">
@@ -205,7 +215,7 @@ const EditProfile = () => {
           text={"Save"}
           className="px-12 py-4"
           type="submit"
-          onClick={() => {}}
+          onClick={() => { }}
           aria-label="Save profile changes"
         />
       </div>

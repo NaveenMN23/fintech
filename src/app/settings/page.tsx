@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@/components/common/Card/Card";
 import EditProfile from "./editprofile/page";
 import Preferences from "./preferences/page";
@@ -30,6 +30,7 @@ const navmenus = [
 
 const Settings = () => {
   const [active, setActive] = useState(navmenus[0]);
+  const [hydrated, setHydrated] = useState(false);
 
   const activeTab = (
     menu: React.SetStateAction<{
@@ -41,6 +42,15 @@ const Settings = () => {
   ) => {
     setActive(menu);
   };
+
+  useEffect(() => {
+    setHydrated(true);
+
+    // on unMount: clean up
+    return () => {  }
+  }, []);
+
+  if (!hydrated) return null;
 
   return (
     <div>
