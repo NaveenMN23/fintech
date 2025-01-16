@@ -6,12 +6,19 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 // Register required Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-const PieChart = () => {
-  const data = {
-    labels: ['Investment', 'Entertainment', 'Bill Expense', 'Others'],
+interface PieChartProps {
+  data: {
+    values: Array<number>,
+    labels: Array<string>
+  }
+}
+
+const PieChart:React.FC<PieChartProps> = ({data}) => {
+  const dataObj = {
+    labels: data.labels,
     datasets: [
       {
-        data: [20,30,15,35],
+        data: data.values,
         backgroundColor: [
             '#396AFF',
             '#343C6A',
@@ -42,25 +49,25 @@ const PieChart = () => {
         enabled: true,
       },
       datalabels: {
-        formatter: (value: number, context: { dataset: { data: any[]; }; }) => {
-          const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
+        formatter: (value: number, context: any) => {
+          const total = context.dataset.data.reduce((acc: number, curr: number) => acc + curr, 0);
           const percentage = ((value / total) * 100).toFixed(1) + "%";
           const label = context?.chart?.data.labels[context?.dataIndex];
           return `${label}\n${percentage}`; // Display value and percentage
         },
         color: "#fff", // Text color
         font: {
-          weight: "bold",
+          weight: "bold" as const,
         },
-        anchor: "end", // Position adjustment
-        align: "start", // Align text to slice
+        anchor: "end" as const, // Position adjustment
+        align: "start" as const, // Align text to slice
       },
     },
   };
 
   return (
     <div className="h-[14rem] overflow-visible">
-      <Pie data={data} options={options} />
+      <Pie data={dataObj} options={options} />
     </div>
   );
 };

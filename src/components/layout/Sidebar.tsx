@@ -1,12 +1,20 @@
 "use client";
 
-import { JSX, useState } from 'react';
+import { JSX, RefObject, useState } from 'react';
 import Image from 'next/image';
 import { TiHome } from "react-icons/ti";
 import { RiSettings5Fill } from "react-icons/ri";
 import Link from 'next/link';
 
-const Sidebar: React.FC<any> = ({isOpen, toggleSidebar, sidebarRef, currentPage, handleMenuClick}) => {
+interface SidebarProps {
+  isOpen: boolean; // Whether the sidebar is open
+  toggleSidebar: () => void; // Function to toggle sidebar
+  sidebarRef: RefObject<HTMLDivElement | null>; // Ref pointing to the sidebar
+  currentPage: string; // Current active page
+  handleMenuClick: (menu: { icon?: JSX.Element; name: string; route: string; id: number; }) => void; // Function for menu clicks
+}
+
+const Sidebar: React.FC<SidebarProps> = ({isOpen, toggleSidebar, sidebarRef, currentPage, handleMenuClick}) => {
   
   const [active, setActive] = useState(currentPage);
 
