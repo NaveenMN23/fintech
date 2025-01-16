@@ -1,8 +1,12 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
-
-First, clone the repo and run the development server:
+1. Install Nodejs and Git
+1. clone the repo 
+```bash
+git clone https://github.com/NaveenMN23/fintech.git
+```
+2. run the development server:
 
 ```bash
 npm install
@@ -18,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 2. Framework: NextJS.
 3. Mock API: NextJS API route.
 4. Logging: Log rocket (https://app.logrocket.com/bnizbp/fintech?persistForm=true)
-5. Deployment: Vercel (https://fintech-n1udigu9g-naveens-projects-d98eea15.vercel.app/)
+5. Deployed URL: Vercel (https://fintech-n1udigu9g-naveens-projects-d98eea15.vercel.app/)
 
 ## Features covered
 

@@ -1,3 +1,5 @@
+"use client";
+
 import Input from "@/components/atoms/Input/Input";
 import Label from "@/components/atoms/Label/Label";
 import React, { memo } from "react";

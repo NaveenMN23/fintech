@@ -4,7 +4,7 @@ import React, { memo } from "react";
 
 const MaintenancePage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-full bg-gray-100 text-center">
+    <div className="flex flex-col items-center justify-center h-[45vh] bg-gray-100 text-center">
       <h1 className="text-4xl font-bold text-gray-800 mb-4">
         Page Under Maintenance
       </h1>

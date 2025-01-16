@@ -13,7 +13,6 @@ import {
 } from "redux-persist";
 
 const reducers = combineReducers({
-  // counter: counterReducer, // Add reducers here
   [api.reducerPath]: api.reducer,
 });
 

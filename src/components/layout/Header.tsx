@@ -1,8 +1,5 @@
 "use client";
 
-// import { useAppSelector } from "@/store/hooks";
-// import { RootState } from "@/store/store";
-// import Image from "next/image";
 import { memo, MouseEventHandler } from "react";
 
 interface HeaderProps {
@@ -11,8 +8,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ title, toggleSidebar }) => {
-  // const title = useAppSelector((state: RootState) => state.details.title)
-
   return (
     <header className="flex flex-shrink-0 items-center bg-appWhite text-appGray w-full h-[8vh] container md:items-center">
       <button
