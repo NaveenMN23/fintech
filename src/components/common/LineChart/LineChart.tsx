@@ -10,8 +10,9 @@ import {
   Tooltip,
   Legend,
   Filler,
-  ScriptableContext
+  ScriptableContext,
 } from "chart.js";
+import { memo } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -21,14 +22,14 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Filler
+  Filler,
 );
 
 interface LineChartProps {
   data: {
-    values: Array<number>,
-    labels: Array<string>
-  }
+    values: Array<number>;
+    labels: Array<string>;
+  };
 }
 
 const LineChartGradient: React.FC<LineChartProps> = ({ data }) => {
@@ -45,9 +46,9 @@ const LineChartGradient: React.FC<LineChartProps> = ({ data }) => {
           gradient.addColorStop(1, "#2D60FF00");
           return gradient;
         },
-        borderColor: "#1814F3"
-      }
-    ]
+        borderColor: "#1814F3",
+      },
+    ],
   };
 
   const options = {
@@ -56,18 +57,18 @@ const LineChartGradient: React.FC<LineChartProps> = ({ data }) => {
     scales: {
       x: {
         grid: {
-          display: false
-        }
-      }
+          display: false,
+        },
+      },
     },
     elements: {
       line: {
-        tension: 0.35
-      }
+        tension: 0.35,
+      },
     },
     plugins: {
       filler: {
-        propagate: false
+        propagate: false,
       },
       datalabels: {
         display: false,
@@ -77,8 +78,8 @@ const LineChartGradient: React.FC<LineChartProps> = ({ data }) => {
       },
     },
     interaction: {
-      intersect: true
-    }
+      intersect: true,
+    },
   };
 
   return (
@@ -86,6 +87,6 @@ const LineChartGradient: React.FC<LineChartProps> = ({ data }) => {
       <Line data={dataObj} options={options} />
     </div>
   );
-}
+};
 
-export default LineChartGradient;
+export default memo(LineChartGradient);

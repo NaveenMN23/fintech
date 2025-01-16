@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { memo } from "react";
 
 const MaintenancePage = () => {
   return (
@@ -9,10 +9,11 @@ const MaintenancePage = () => {
         Page Under Maintenance
       </h1>
       <p className="text-lg text-gray-600">
-        This page is currently under maintenance. Please contact the Administrator for more information.
+        This page is currently under maintenance. Please contact the
+        Administrator for more information.
       </p>
     </div>
   );
 };
 
-export default MaintenancePage;
+export default memo(MaintenancePage);
