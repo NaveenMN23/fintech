@@ -18,18 +18,27 @@ import dynamic from "next/dynamic";
 import { useLazyGetQuickTransferQuery } from "@/store/slice/banking/bankingApiSlice";
 import { isEmpty } from "@/utils/utils";
 import { Endpoints } from "@/constants/endpoint";
-const BarChart = dynamic(() => import('@/components/common/BarChart/BarChart'), {
-  loading: () => <CardLoader />,
-  ssr: false,
-});
-const LineChartGradient = dynamic(() => import('@/components/common/LineChart/LineChart'), {
-  loading: () => <CardLoader />,
-  ssr: false,
-});
-const PieChart = dynamic(() => import('@/components/common/PieChart/PieChart'), {
-  loading: () => <CardLoader />,
-  ssr: false,
-});
+const BarChart = dynamic(
+  () => import("@/components/common/BarChart/BarChart"),
+  {
+    loading: () => <CardLoader />,
+    ssr: false,
+  },
+);
+const LineChartGradient = dynamic(
+  () => import("@/components/common/LineChart/LineChart"),
+  {
+    loading: () => <CardLoader />,
+    ssr: false,
+  },
+);
+const PieChart = dynamic(
+  () => import("@/components/common/PieChart/PieChart"),
+  {
+    loading: () => <CardLoader />,
+    ssr: false,
+  },
+);
 
 interface TransactionHistoryProps {
   id: number;
@@ -67,27 +76,28 @@ interface BalanceHistoryProps {
   labels: Array<string>;
 }
 
-const expenseStatistics:ExpenseStatisticsProps = {
+const expenseStatistics: ExpenseStatisticsProps = {
   values: [20, 30, 15, 35],
-  labels: ["Investment", "Entertainment", "Bill Expense", "Others"],
+  labels: ["Invest", "Entertain", "Expense", "Others"],
 };
-const weeklyActivityData:WeeklyActivityProps = {
-  withdraw: [65, 59, 80, 81, 56, 55, 130],
-  deposit: [60, 80, 70, 81, 56, 55, 0],
+const weeklyActivityData: WeeklyActivityProps = {
+  withdraw: [81, 60, 58, 80, 52, 68, 70],
+  deposit: [90, 50, 52, 85, 58, 60, 65],
   week: ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Friday"],
   labels: ["Withdraw", "Deposit"],
-}
-const balanceHistoryData:BalanceHistoryProps = {
+};
+const balanceHistoryData: BalanceHistoryProps = {
   values: [33, 53, 85, 41, 44, 65],
   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
 };
-
 
 const Dashboard = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hydrated, setHydrated] = useState(false);
   const [bankCard, setBankCards] = useState<BankCardProps[]>([]);
-  const [transactionsHistory, setTransactionHistory] = useState<TransactionHistoryProps[]>([]);
+  const [transactionsHistory, setTransactionHistory] = useState<
+    TransactionHistoryProps[]
+  >([]);
   const [quickTransferData, setQuickTransferData] = useState();
 
   const [getQuickTransfer] = useLazyGetQuickTransferQuery();
@@ -113,61 +123,60 @@ const Dashboard = () => {
 
   const fetchBankCardDetails = async () => {
     try {
-      const resp = await fetch(Endpoints.bankCards)
-      const data = await resp.json()
-      setBankCards(data?.data)
+      const resp = await fetch(Endpoints.bankCards);
+      const data = await resp.json();
+      setBankCards(data?.data);
     } catch (e) {
-      if (e.name === 'AbortError') {
-        console.log('Fetch aborted');
+      if (e.name === "AbortError") {
+        console.log("Fetch aborted");
       } else {
-        console.error('Global fetch error:', e.message);
+        console.error("Global fetch error:", e.message);
       }
       throw e;
     }
-  }
+  };
 
   const fetchTransactionDetails = async () => {
     try {
-      const resp = await fetch(Endpoints.transactionhistory)
-      const data = await resp.json()
-      setTransactionHistory(data?.data)
+      const resp = await fetch(Endpoints.transactionhistory);
+      const data = await resp.json();
+      setTransactionHistory(data?.data);
     } catch (e) {
-      if (e.name === 'AbortError') {
-        console.log('Fetch aborted');
+      if (e.name === "AbortError") {
+        console.log("Fetch aborted");
       } else {
-        console.error('Global fetch error:', e.message);
+        console.error("Global fetch error:", e.message);
       }
       throw e;
     }
-  }
+  };
 
   useEffect(() => {
     fetchBankCardDetails();
     fetchTransactionDetails();
     setHydrated(true);
     // on unMount: clean up
-    return () => {
-    }
+    return () => {};
   }, []);
 
   useEffect(() => {
-    const fetchQuickTransfer = async() => {
+    const fetchQuickTransfer = async () => {
       try {
         const resp = await getQuickTransfer({}).unwrap();
-        if(resp?.status === 200){
-          setQuickTransferData(resp?.data)
+        if (resp?.status === 200) {
+          setQuickTransferData(resp?.data);
         }
       } catch (e) {
-        if (e.name === 'AbortError') {
-          console.log('Fetch aborted');
+        if (e.name === "AbortError") {
+          console.log("Fetch aborted");
         } else {
-          console.error('Global fetch error:', e.message);
+          console.error("Global fetch error:", e.message);
         }
         throw e;
       }
-    }
+    };
     fetchQuickTransfer();
-  }, [getQuickTransfer])
+  }, [getQuickTransfer]);
 
   if (!hydrated) return null;
 
@@ -242,7 +251,9 @@ const Dashboard = () => {
             <ErrorBoundary
               fallback={<div>Unable to fetch weekly activity</div>}
             >
-              {weeklyActivityData && !isEmpty(weeklyActivityData) && <BarChart data={weeklyActivityData} />}
+              {weeklyActivityData && !isEmpty(weeklyActivityData) && (
+                <BarChart data={weeklyActivityData} />
+              )}
             </ErrorBoundary>
           </Card>
         </div>
@@ -260,7 +271,9 @@ const Dashboard = () => {
             <ErrorBoundary
               fallback={<div>Unable to fetch expense statistics</div>}
             >
-              {expenseStatistics && !isEmpty(expenseStatistics) && <PieChart data={expenseStatistics} />}
+              {expenseStatistics && !isEmpty(expenseStatistics) && (
+                <PieChart data={expenseStatistics} />
+              )}
             </ErrorBoundary>
           </Card>
         </div>
@@ -276,22 +289,25 @@ const Dashboard = () => {
           >
             <ErrorBoundary fallback={<div>Unable to fetch Quick Transfer</div>}>
               <div className="flex flex-col gap-5">
-                {quickTransferData && !isEmpty(quickTransferData) ? <CardSlider
-                  currentIndex={currentIndex}
-                  handlePrev={handlePrev}
-                  handleNext={handleNext}
-                  dataLength={quickTransferData?.length}
-                >
-                  {quickTransferData?.map((user, i: Key | null | undefined) => (
-                    <CardIcon
-                      i={i}
-                      key={i}
-                      currentIndex={currentIndex}
-                      {...user}
-                    />
-                  ))
-                  }
-                </CardSlider> : (
+                {quickTransferData && !isEmpty(quickTransferData) ? (
+                  <CardSlider
+                    currentIndex={currentIndex}
+                    handlePrev={handlePrev}
+                    handleNext={handleNext}
+                    dataLength={quickTransferData?.length}
+                  >
+                    {quickTransferData?.map(
+                      (user, i: Key | null | undefined) => (
+                        <CardIcon
+                          i={i}
+                          key={i}
+                          currentIndex={currentIndex}
+                          {...user}
+                        />
+                      ),
+                    )}
+                  </CardSlider>
+                ) : (
                   <CardIconLoader />
                 )}
 
@@ -337,9 +353,9 @@ const Dashboard = () => {
             <ErrorBoundary
               fallback={<div>Unable to fetch balance history</div>}
             >
-              {balanceHistoryData && !isEmpty(balanceHistoryData) && 
+              {balanceHistoryData && !isEmpty(balanceHistoryData) && (
                 <LineChartGradient data={balanceHistoryData} />
-              }
+              )}
             </ErrorBoundary>
           </Card>
         </div>

@@ -7,9 +7,10 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 interface PieChartProps {
-  data:{
-  values: Array<number>;
-  labels: Array<string>;}
+  data: {
+    values: Array<number>;
+    labels: Array<string>;
+  };
 }
 
 const PieChart: React.FC<PieChartProps> = ({ data }) => {

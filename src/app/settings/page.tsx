@@ -47,7 +47,7 @@ const Settings = () => {
     setHydrated(true);
 
     // on unMount: clean up
-    return () => {  }
+    return () => {};
   }, []);
 
   if (!hydrated) return null;

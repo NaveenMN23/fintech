@@ -9,9 +9,11 @@ export default function StoreProvider({
 }: {
   children: React.ReactNode;
 }) {
-  return (<Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      {children}
-    </PersistGate>
-  </Provider>);
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {children}
+      </PersistGate>
+    </Provider>
+  );
 }

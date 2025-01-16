@@ -37,8 +37,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Pending Tasks
 
 1. Buttons, Search and Profile buttons are not added in Header. Considered as out of scope.
-2. Title is not aligned in Header for mobile device.
-3. Lazy loading or pagination for API data is considered as out of scope.
-4. Creation and Integration of all the API is considered as out of scope.
-5. Quick transfer button styling issue (overlap with input field).
-
+2. Lazy loading or pagination for API data is considered as out of scope.
+3. Creation and Integration of all the API is considered as out of scope.
+4. Quick transfer button styling issue (overlap with input field).

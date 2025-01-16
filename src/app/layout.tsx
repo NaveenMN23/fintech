@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   title: "Soar Task",
   description: "Task by Soar",
   icons: {
-    icon: "/favicon.svg"
+    icon: "/favicon.svg",
   },
 };
 

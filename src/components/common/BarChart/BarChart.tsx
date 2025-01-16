@@ -10,12 +10,12 @@ import { memo } from "react";
 import { Bar } from "react-chartjs-2";
 
 interface BarChartProps {
-  data:{
-  withdraw: Array<number>;
-  deposit: Array<number>;
-  week: Array<string>;
-  labels: Array<string>;
-  }
+  data: {
+    withdraw: Array<number>;
+    deposit: Array<number>;
+    week: Array<string>;
+    labels: Array<string>;
+  };
 }
 
 // Register required components
@@ -62,12 +62,12 @@ const options = {
   },
 };
 
-const BarChart: React.FC<BarChartProps> = ({data}) => {
+const BarChart: React.FC<BarChartProps> = ({ data }) => {
   const dataObj = {
     labels: data?.week,
     datasets: [
       {
-        label: data?.labels,
+        label: data?.labels[0],
         data: data?.withdraw,
         backgroundColor: "#232323",
         borderColor: "#232323",
@@ -81,7 +81,7 @@ const BarChart: React.FC<BarChartProps> = ({data}) => {
         minBarThickness: 4,
       },
       {
-        label: data?.labels,
+        label: data?.labels[1],
         data: data?.deposit,
         backgroundColor: "#396AFF",
         borderColor: "#396AFF",

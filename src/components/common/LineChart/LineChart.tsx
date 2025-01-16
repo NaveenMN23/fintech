@@ -26,9 +26,10 @@ ChartJS.register(
 );
 
 interface LineChartProps {
-  data:{
-  values: Array<number>;
-  labels: Array<string>;}
+  data: {
+    values: Array<number>;
+    labels: Array<string>;
+  };
 }
 
 const LineChartGradient: React.FC<LineChartProps> = ({ data }) => {

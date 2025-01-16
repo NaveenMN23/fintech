@@ -1,4 +1,4 @@
-export enum requestType{
-    GET='GET',
-    POST='POST'
+export enum requestType {
+  GET = "GET",
+  POST = "POST",
 }

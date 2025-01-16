@@ -1,30 +1,38 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import {api} from "./slice/api";
+import { api } from "./slice/api";
 import localStorage from "redux-persist/es/storage";
-import { FLUSH, PAUSE, PERSIST, persistStore, persistReducer, PURGE, REGISTER, REHYDRATE } from "redux-persist";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistStore,
+  persistReducer,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from "redux-persist";
 
 const reducers = combineReducers({
   // counter: counterReducer, // Add reducers here
-  [api.reducerPath]: api.reducer
+  [api.reducerPath]: api.reducer,
 });
 
 const persistConfig = {
-  key:'root',
-  version:1,
-  storage: localStorage
-}
+  key: "root",
+  version: 1,
+  storage: localStorage,
+};
 
-const persistedReducer = persistReducer(persistConfig, reducers)
+const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware:(getDefaultMiddleware => 
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck:{
-        ignoreActions: [FLUSH,REHYDRATE,PAUSE,PERSIST,PURGE,REGISTER]
-      }
-    }).concat(api.middleware)
-  )
+      serializableCheck: {
+        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(api.middleware),
 });
 
 export const persistor = persistStore(store);

@@ -144,7 +144,7 @@ const EditProfile = () => {
     setHydrated(true);
 
     // on unMount: clean up
-    return () => {  }
+    return () => {};
   }, []);
 
   if (!hydrated) return null;
@@ -215,7 +215,7 @@ const EditProfile = () => {
           text={"Save"}
           className="px-12 py-4"
           type="submit"
-          onClick={() => { }}
+          onClick={() => {}}
           aria-label="Save profile changes"
         />
       </div>
