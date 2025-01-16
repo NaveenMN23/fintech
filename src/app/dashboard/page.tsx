@@ -16,7 +16,6 @@ import CardIconLoader from "@/components/atoms/CardIcon/CardIconLoader";
 import ErrorBoundary from "@/components/common/ErrorBoundary/ErrorBoundary";
 import dynamic from "next/dynamic";
 import { useLazyGetQuickTransferQuery } from "@/store/slice/banking/bankingApiSlice";
-import { fetchWithErrorHandling } from "@/utils/api";
 import { isEmpty } from "@/utils/utils";
 import { Endpoints } from "@/constants/endpoint";
 const BarChart = dynamic(() => import('@/components/common/BarChart/BarChart'), {
