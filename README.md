@@ -31,15 +31,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 7. NextJS is used instead of Create React App to create the mock API.
 8. NextJS in-built routing mechanism is used instead of React Router.
 9. Chart.JS for building the charts.
-10. Memoize the components to avoid re-renders.
+10. Memoize the components to avoid unnecessary re-renders.
 11. Grids and Flexboxes are used for styling.
 
 ## Pending Tasks
 
-1. Buttons, Search and Profile are not added in Header. Considered as out of scope.
+1. Buttons, Search and Profile buttons are not added in Header. Considered as out of scope.
 2. Title is not aligned in Header for mobile device.
-3. Lazy loading or pagination for API data.
-4. Creation and Integration of all the API.
-5. Settings Page is static screen.
-6. Quick transfer button styling issue (overlap with input field).
+3. Lazy loading or pagination for API data is considered as out of scope.
+4. Creation and Integration of all the API is considered as out of scope.
+5. Quick transfer button styling issue (overlap with input field).
 
