@@ -1,3 +1,5 @@
+"use client";
+
 import MaintenancePage from "@/components/common/Maintenance/Maintenance";
 import { useEffect, useState } from "react";
 

@@ -1,3 +1,5 @@
+"use client";
+
 const CardLoader = ({ className }: { className?: string }) => {
   return (
     <div className={`rounded-3xl bg-gray-300 ${className || ""} animate-pulse`}>

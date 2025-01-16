@@ -62,13 +62,6 @@ const Sidebar: React.FC<SidebarProps> = ({
     },
   ];
 
-  // const dispatch = useAppDispatch();
-
-  // const handleMenuClick = (menu: { icon?: JSX.Element; name: string; route?: string; id: number; }) => {
-  //   dispatch(details(menu.name));
-  //   activeTab(menu.id)
-  // }
-
   return (
     <div className="flex fixed h-full">
       {/* Sidebar */}

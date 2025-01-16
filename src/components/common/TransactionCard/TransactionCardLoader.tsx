@@ -1,3 +1,5 @@
+"use client";
+
 const TransactionCardLoader = () => {
   return (
     <div className="flex gap-2 w-full justify-between animate-pulse">
