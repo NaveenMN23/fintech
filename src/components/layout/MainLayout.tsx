@@ -4,6 +4,7 @@ import React, { JSX, useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { usePathname } from "next/navigation";
+import { initLogRocket } from "@/utils/logger/logrocket";
 
 const menus: { [key: string]: string } = {
   "/": "Dashboard",
@@ -51,6 +52,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setHydrated(true);
+    initLogRocket();
   }, []);
 
   if (!hydrated) return null;

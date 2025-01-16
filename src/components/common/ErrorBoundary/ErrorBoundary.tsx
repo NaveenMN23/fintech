@@ -1,5 +1,6 @@
 "use client";
 
+import LogRocket from "logrocket";
 import React, { ReactNode, ErrorInfo } from "react";
 
 interface ErrorBoundaryProps {
@@ -30,6 +31,7 @@ class ErrorBoundary extends React.Component<
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // Log the error or send it to an error tracking service
     console.error("ErrorBoundary caught an error:", error, errorInfo);
+    LogRocket.captureException(error, { extra: errorInfo || "" });
     this.setState({ errorInfo });
   }
 
