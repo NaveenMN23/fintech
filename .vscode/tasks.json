@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Lint All Files",
+      "type": "shell",
+      "command": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix",
+      "problemMatcher": ["$eslint-stylish"]
+    }
+  ]
+}

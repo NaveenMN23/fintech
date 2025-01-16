@@ -1,14 +1,14 @@
 import React from "react";
 
 interface InputProps {
-  type: string; 
-  id: string; 
-  name: string; 
-  value: string | number; 
-  placeholder?: string; 
-  required?: boolean; 
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
-  className?: string; 
+  type: string;
+  id: string;
+  name: string;
+  value: string | number;
+  placeholder?: string;
+  required?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
   minLength?: number;
   maxLength?: number;
   min?: number;
@@ -27,7 +27,7 @@ const Input: React.FC<InputProps> = ({
   minLength = 1,
   maxLength = 100,
   min = 100000,
-  max = 999999
+  max = 999999,
 }) => {
   return (
     <input

@@ -1,13 +1,20 @@
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
 interface BarChartProps {
   data: {
-    withdraw: Array<number>,
-    deposit: Array<number>,
-    week: Array<string>,
-    labels: Array<string>
-  }
+    withdraw: Array<number>;
+    deposit: Array<number>;
+    week: Array<string>;
+    labels: Array<string>;
+  };
 }
 
 // Register required components
@@ -15,18 +22,18 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const options = {
   responsive: true,
-  maintainAspectRatio:false,
-  layout:{
+  maintainAspectRatio: false,
+  layout: {
     padding: {
       left: 3,
-      right: 3
-    }
+      right: 3,
+    },
   },
   plugins: {
     legend: {
       display: true,
-      position: 'top' as const,
-      align: 'end' as const,
+      position: "top" as const,
+      align: "end" as const,
       labels: {
         usePointStyle: true,
         boxWidth: 10, // Size of the legend box
@@ -35,7 +42,7 @@ const options = {
         font: {
           size: 14, // Font size of the legend labels
         },
-      }
+      },
     },
     datalabels: {
       display: false, // Disable datalabels on bars
@@ -46,7 +53,7 @@ const options = {
       beginAtZero: true,
       grid: {
         display: false,
-      }
+      },
     },
     y: {
       beginAtZero: true,
@@ -54,16 +61,15 @@ const options = {
   },
 };
 
-const BarChart:React.FC<BarChartProps> = ({data}) => {
-
+const BarChart: React.FC<BarChartProps> = ({ data }) => {
   const dataObj = {
     labels: data.week,
     datasets: [
       {
         label: data.labels[0],
         data: data.withdraw,
-        backgroundColor: '#232323',
-        borderColor: '#232323',
+        backgroundColor: "#232323",
+        borderColor: "#232323",
         borderWidth: 1,
         borderRadius: Number.MAX_VALUE,
         borderSkipped: false,
@@ -71,13 +77,13 @@ const BarChart:React.FC<BarChartProps> = ({data}) => {
         categoryPercentage: 0.5,
         barThickness: 10,
         maxBarThickness: 10,
-        minBarThickness:5,
+        minBarThickness: 5,
       },
       {
         label: data.labels[1],
         data: data.deposit,
-        backgroundColor: '#396AFF',
-        borderColor: '#396AFF',
+        backgroundColor: "#396AFF",
+        borderColor: "#396AFF",
         borderWidth: 1,
         borderRadius: Number.MAX_VALUE,
         borderSkipped: false,
@@ -85,16 +91,16 @@ const BarChart:React.FC<BarChartProps> = ({data}) => {
         categoryPercentage: 0.5,
         barThickness: 10,
         maxBarThickness: 10,
-        minBarThickness:5,
-        },
+        minBarThickness: 5,
+      },
     ],
   };
 
   return (
-    <div className='h-[13rem]'>
+    <div className="h-[13rem]">
       <Bar data={dataObj} options={options} />;
     </div>
-  )
+  );
 };
 
 export default BarChart;

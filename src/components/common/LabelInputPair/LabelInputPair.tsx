@@ -30,10 +30,9 @@ const LabelInputPair: React.FC<LabelInputPairProps> = ({
   className = "",
   minLength = 1,
   maxLength = 100,
-  max=1,
-  min=100
+  max = 1,
+  min = 100,
 }) => {
-
   return (
     <div className={`${className}`}>
       <Label htmlFor={htmlFor} text={label} />

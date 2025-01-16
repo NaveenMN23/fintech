@@ -5,7 +5,7 @@ interface appState {
 }
 
 const initialState: appState = {
-  title: "Dashboard"
+  title: "Dashboard",
 };
 
 const appSlice = createSlice({
@@ -14,7 +14,7 @@ const appSlice = createSlice({
   reducers: {
     details: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
-    }
+    },
   },
 });
 

@@ -8,49 +8,43 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 interface PieChartProps {
   data: {
-    values: Array<number>,
-    labels: Array<string>
-  }
+    values: Array<number>;
+    labels: Array<string>;
+  };
 }
 
-const PieChart:React.FC<PieChartProps> = ({data}) => {
+const PieChart: React.FC<PieChartProps> = ({ data }) => {
   const dataObj = {
     labels: data.labels,
     datasets: [
       {
         data: data.values,
-        backgroundColor: [
-            '#396AFF',
-            '#343C6A',
-            '#FC7900',
-            '#232323',
-          ],
-          borderColor: [
-            '#396AFF',
-            '#343C6A',
-            '#FC7900',
-            '#232323',
-          ],
+        backgroundColor: ["#396AFF", "#343C6A", "#FC7900", "#232323"],
+        borderColor: ["#396AFF", "#343C6A", "#FC7900", "#232323"],
         borderWidth: 1,
         // offSet:20,
-        hoverOffset:40,
+        hoverOffset: 40,
       },
     ],
   };
 
   const options = {
     responsive: true,
-    maintainAspectRatio:false,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        display:false,
+        display: false,
       },
       tooltip: {
         enabled: true,
       },
       datalabels: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formatter: (value: number, context: any) => {
-          const total = context.dataset.data.reduce((acc: number, curr: number) => acc + curr, 0);
+          const total = context.dataset.data.reduce(
+            (acc: number, curr: number) => acc + curr,
+            0,
+          );
           const percentage = ((value / total) * 100).toFixed(1) + "%";
           const label = context?.chart?.data.labels[context?.dataIndex];
           return `${label}\n${percentage}`; // Display value and percentage

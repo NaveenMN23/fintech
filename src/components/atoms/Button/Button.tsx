@@ -7,7 +7,7 @@ interface ButtonProps {
   onClick: () => void; // Click handler
   type?: "button" | "submit" | "reset"; // Button type
   className?: string; // Additional styling
-  children?:React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   type = "button",
   className = "",
-  children = ""
+  children = "",
 }) => {
   return (
     <button
@@ -29,4 +29,3 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 export default Button;
-
