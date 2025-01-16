@@ -7,18 +7,17 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 interface PieChartProps {
-  data: {
-    values: Array<number>;
-    labels: Array<string>;
-  };
+  data:{
+  values: Array<number>;
+  labels: Array<string>;}
 }
 
 const PieChart: React.FC<PieChartProps> = ({ data }) => {
   const dataObj = {
-    labels: data.labels,
+    labels: data?.labels,
     datasets: [
       {
-        data: data.values,
+        data: data?.values,
         backgroundColor: ["#396AFF", "#343C6A", "#FC7900", "#232323"],
         borderColor: ["#396AFF", "#343C6A", "#FC7900", "#232323"],
         borderWidth: 1,

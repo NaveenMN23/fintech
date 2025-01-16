@@ -10,12 +10,12 @@ import { memo } from "react";
 import { Bar } from "react-chartjs-2";
 
 interface BarChartProps {
-  data: {
-    withdraw: Array<number>;
-    deposit: Array<number>;
-    week: Array<string>;
-    labels: Array<string>;
-  };
+  data:{
+  withdraw: Array<number>;
+  deposit: Array<number>;
+  week: Array<string>;
+  labels: Array<string>;
+  }
 }
 
 // Register required components
@@ -62,37 +62,37 @@ const options = {
   },
 };
 
-const BarChart: React.FC<BarChartProps> = ({ data }) => {
+const BarChart: React.FC<BarChartProps> = ({data}) => {
   const dataObj = {
-    labels: data.week,
+    labels: data?.week,
     datasets: [
       {
-        label: data.labels[0],
-        data: data.withdraw,
+        label: data?.labels,
+        data: data?.withdraw,
         backgroundColor: "#232323",
         borderColor: "#232323",
         borderWidth: 1,
         borderRadius: Number.MAX_VALUE,
         borderSkipped: false,
-        barPercentage: 0.9,
-        categoryPercentage: 0.5,
-        barThickness: 10,
+        barPercentage: 0.8, // Reduce the bar width
+        categoryPercentage: 0.4,
+        barThickness: 8,
         maxBarThickness: 10,
-        minBarThickness: 5,
+        minBarThickness: 4,
       },
       {
-        label: data.labels[1],
-        data: data.deposit,
+        label: data?.labels,
+        data: data?.deposit,
         backgroundColor: "#396AFF",
         borderColor: "#396AFF",
         borderWidth: 1,
         borderRadius: Number.MAX_VALUE,
         borderSkipped: false,
-        barPercentage: 0.9,
-        categoryPercentage: 0.5,
-        barThickness: 10,
+        barPercentage: 0.8, // Reduce the bar width
+        categoryPercentage: 0.4,
+        barThickness: 8,
         maxBarThickness: 10,
-        minBarThickness: 5,
+        minBarThickness: 4,
       },
     ],
   };

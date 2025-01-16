@@ -2,10 +2,9 @@
 
 import BankCard from "@/components/common/BankCard/BankCard";
 import Card from "@/components/common/Card/Card";
-import Image from "next/image";
 import TransactionCard from "@/components/common/TransactionCard/TransactionCard";
 import { FaRegPaperPlane } from "react-icons/fa6";
-import { useState } from "react";
+import { Key, useEffect, useState } from "react";
 import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input/Input";
 import BankCardLoader from "@/components/common/BankCard/BankCardLoader";
@@ -16,131 +15,83 @@ import CardSlider from "@/components/common/CardSlider/CardSlider";
 import CardIconLoader from "@/components/atoms/CardIcon/CardIconLoader";
 import ErrorBoundary from "@/components/common/ErrorBoundary/ErrorBoundary";
 import dynamic from "next/dynamic";
+import { useLazyGetQuickTransferQuery } from "@/store/slice/banking/bankingApiSlice";
+import { fetchWithErrorHandling } from "@/utils/api";
+import { isEmpty } from "@/utils/utils";
+import { Endpoints } from "@/constants/endpoint";
 const BarChart = dynamic(() => import('@/components/common/BarChart/BarChart'), {
-  loading: () => <CardLoader/>,
+  loading: () => <CardLoader />,
   ssr: false,
 });
 const LineChartGradient = dynamic(() => import('@/components/common/LineChart/LineChart'), {
-  loading: () => <CardLoader/>,
+  loading: () => <CardLoader />,
   ssr: false,
 });
 const PieChart = dynamic(() => import('@/components/common/PieChart/PieChart'), {
-  loading: () => <CardLoader/>,
+  loading: () => <CardLoader />,
   ssr: false,
 });
 
-const cards = [
-  {
-    id: 1,
-    balance: "5756",
-    currency: "$",
-    name: "Eddy Cusuma",
-    expiry: "12/22",
-    number: "3778 9080 3040 1234",
-  },
-  {
-    id: 2,
-    balance: "5756",
-    currency: "$",
-    name: "Eddy Cusuma",
-    expiry: "12/22",
-    number: "3778 9080 3040 1234",
-  }
-];
+interface TransactionHistoryProps {
+  id: number;
+  icon: string;
+  text: string;
+  createdAt: string;
+  type: string;
+  currency: string;
+  amount: string;
+}
 
-const transactionsHistory = [
-  {
-    id: 1,
-    icon: (
-      <Image src={"/recent/walletcard.svg"} alt="WC" height={25} width={25} />
-    ),
-    text: "Some Transaction",
-    createdAt: "2021-01-28",
-    type: "debit",
-    currency: "$",
-    amount: "850",
-  },
-  {
-    id: 2,
-    icon: (
-      <Image src={"/recent/walletcard.svg"} alt="WC" height={25} width={25} />
-    ),
-    text: "Some Transaction",
-    createdAt: "2021-01-28",
-    type: "credit",
-    currency: "$",
-    amount: "850",
-  },
-  {
-    id: 3,
-    icon: (
-      <Image src={"/recent/walletcard.svg"} alt="WC" height={25} width={25} />
-    ),
-    text: "Some Transaction",
-    createdAt: "2021-01-28",
-    type: "debit",
-    currency: "$",
-    amount: "850",
-  },
-  {
-    id: 4,
-    icon: (
-      <Image src={"/recent/walletcard.svg"} alt="WC" height={25} width={25} />
-    ),
-    text: "Some Transaction",
-    createdAt: "2021-01-28",
-    type: "debit",
-    currency: "$",
-    amount: "850",
-  },
-];
+interface BankCardProps {
+  id: number;
+  balance: string;
+  currency: string;
+  name: string;
+  expiry: string;
+  number: string;
+}
 
-const barData = {
+interface ExpenseStatisticsProps {
+  values: Array<number>;
+  labels: Array<string>;
+}
+
+interface WeeklyActivityProps {
+  withdraw: Array<number>;
+  deposit: Array<number>;
+  week: Array<string>;
+  labels: Array<string>;
+}
+
+interface BalanceHistoryProps {
+  values: Array<number>;
+  labels: Array<string>;
+}
+
+const expenseStatistics:ExpenseStatisticsProps = {
+  values: [20, 30, 15, 35],
+  labels: ["Investment", "Entertainment", "Bill Expense", "Others"],
+};
+const weeklyActivityData:WeeklyActivityProps = {
   withdraw: [65, 59, 80, 81, 56, 55, 130],
   deposit: [60, 80, 70, 81, 56, 55, 0],
   week: ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Friday"],
   labels: ["Withdraw", "Deposit"],
-};
-
-const pieData = {
-  values: [20, 30, 15, 35],
-  labels: ["Investment", "Entertainment", "Bill Expense", "Others"],
-};
-
-const lineChartData = {
+}
+const balanceHistoryData:BalanceHistoryProps = {
   values: [33, 53, 85, 41, 44, 65],
   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
 };
 
-const quickTransfer = [
-  {
-    picture: "/users/liviabator.svg",
-    name: "Livia Bator",
-    designation: "CEO",
-    id: 1,
-  },
-  {
-    picture: "/users/liviabator.svg",
-    name: "Randy Press",
-    designation: "Director",
-    id: 2,
-  },
-  {
-    picture: "/users/liviabator.svg",
-    name: "Workman",
-    designation: "Designer",
-    id: 3,
-  },
-  {
-    picture: "/users/liviabator.svg",
-    name: "Workman",
-    designation: "Designer",
-    id: 4,
-  },
-];
 
 const Dashboard = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hydrated, setHydrated] = useState(false);
+  const [bankCard, setBankCards] = useState<BankCardProps[]>([]);
+  const [transactionsHistory, setTransactionHistory] = useState<TransactionHistoryProps[]>([]);
+  const [quickTransferData, setQuickTransferData] = useState();
+
+  const [getQuickTransfer] = useLazyGetQuickTransferQuery();
 
   const handleNext = () => {
     setCurrentIndex((prevIndex: number) => prevIndex + 1);
@@ -161,6 +112,66 @@ const Dashboard = () => {
     console.log(amount);
   };
 
+  const fetchBankCardDetails = async () => {
+    try {
+      const resp = await fetch(Endpoints.bankCards)
+      const data = await resp.json()
+      setBankCards(data?.data)
+    } catch (e) {
+      if (e.name === 'AbortError') {
+        console.log('Fetch aborted');
+      } else {
+        console.error('Global fetch error:', e.message);
+      }
+      throw e;
+    }
+  }
+
+  const fetchTransactionDetails = async () => {
+    try {
+      const resp = await fetch(Endpoints.transactionhistory)
+      const data = await resp.json()
+      setTransactionHistory(data?.data)
+    } catch (e) {
+      if (e.name === 'AbortError') {
+        console.log('Fetch aborted');
+      } else {
+        console.error('Global fetch error:', e.message);
+      }
+      throw e;
+    }
+  }
+
+  useEffect(() => {
+    fetchBankCardDetails();
+    fetchTransactionDetails();
+    setHydrated(true);
+    // on unMount: clean up
+    return () => {
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchQuickTransfer = async() => {
+      try {
+        const resp = await getQuickTransfer({}).unwrap();
+        if(resp?.status === 200){
+          setQuickTransferData(resp?.data)
+        }
+      } catch (e) {
+        if (e.name === 'AbortError') {
+          console.log('Fetch aborted');
+        } else {
+          console.error('Global fetch error:', e.message);
+        }
+        throw e;
+      }
+    }
+    fetchQuickTransfer();
+  }, [getQuickTransfer])
+
+  if (!hydrated) return null;
+
   return (
     <div className="flex flex-col gap-[2rem]" aria-live="polite">
       <div className={`grid grid-cols-1 md:grid-cols-3 gap-4`}>
@@ -175,8 +186,8 @@ const Dashboard = () => {
           </div>
           <ErrorBoundary fallback={<div>Unable to fetch cards</div>}>
             <div className="flex overflow-auto gap-[2rem]" aria-live="polite">
-              {cards ? (
-                cards?.map((card, i) => (
+              {bankCard?.length > 0 ? (
+                bankCard?.map((card, i) => (
                   <Card
                     key={card.id}
                     className={`min-w-[22rem] h-[15rem] md:flex-row md:h-[15rem] rounded-3xl gap-y-8 flex-col ${i % 2 === 0 ? "bg-gradient-to-r from-cardDark to-[#0E0E11] border-cardDarkBorder border-1 text-appWhite" : "bg-cardLight border-cardLightBorder border-1 text-appGray"}`}
@@ -200,7 +211,7 @@ const Dashboard = () => {
           >
             <Card className="p-6 overflow-auto bg-appWhite h-[15rem] md:h-[15rem]">
               <div className="flex flex-col gap-3">
-                {transactionsHistory ? (
+                {transactionsHistory?.length > 0 ? (
                   transactionsHistory?.map((transaction, i) => (
                     <TransactionCard
                       key={transaction.id}
@@ -230,9 +241,9 @@ const Dashboard = () => {
             aria-label="Weekly activity chart"
           >
             <ErrorBoundary
-              fallback={<div>Unable to fetch weekly actiivty</div>}
+              fallback={<div>Unable to fetch weekly activity</div>}
             >
-              {barData && <BarChart data={barData} />}
+              {weeklyActivityData && !isEmpty(weeklyActivityData) && <BarChart data={weeklyActivityData} />}
             </ErrorBoundary>
           </Card>
         </div>
@@ -250,7 +261,7 @@ const Dashboard = () => {
             <ErrorBoundary
               fallback={<div>Unable to fetch expense statistics</div>}
             >
-              {pieData && <PieChart data={pieData} />}
+              {expenseStatistics && !isEmpty(expenseStatistics) && <PieChart data={expenseStatistics} />}
             </ErrorBoundary>
           </Card>
         </div>
@@ -266,25 +277,24 @@ const Dashboard = () => {
           >
             <ErrorBoundary fallback={<div>Unable to fetch Quick Transfer</div>}>
               <div className="flex flex-col gap-5">
-                <CardSlider
+                {quickTransferData && !isEmpty(quickTransferData) ? <CardSlider
                   currentIndex={currentIndex}
                   handlePrev={handlePrev}
                   handleNext={handleNext}
-                  quickTransfer={quickTransfer}
+                  dataLength={quickTransferData?.length}
                 >
-                  {quickTransfer ? (
-                    quickTransfer?.map((user, i) => (
-                      <CardIcon
-                        i={i}
-                        key={i}
-                        currentIndex={currentIndex}
-                        {...user}
-                      />
-                    ))
-                  ) : (
-                    <CardIconLoader />
-                  )}
-                </CardSlider>
+                  {quickTransferData?.map((user, i: Key | null | undefined) => (
+                    <CardIcon
+                      i={i}
+                      key={i}
+                      currentIndex={currentIndex}
+                      {...user}
+                    />
+                  ))
+                  }
+                </CardSlider> : (
+                  <CardIconLoader />
+                )}
 
                 <div className="flex gap-5 items-center">
                   <span className="text-[1rem] text-appSubBlue">
@@ -328,9 +338,9 @@ const Dashboard = () => {
             <ErrorBoundary
               fallback={<div>Unable to fetch balance history</div>}
             >
-              {lineChartData && (
-                <LineChartGradient data={lineChartData} />
-              )}
+              {balanceHistoryData && !isEmpty(balanceHistoryData) && 
+                <LineChartGradient data={balanceHistoryData} />
+              }
             </ErrorBoundary>
           </Card>
         </div>
