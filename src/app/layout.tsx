@@ -28,6 +28,9 @@ const lato = Lato({
 export const metadata: Metadata = {
   title: "Soar Task",
   description: "Task by Soar",
+  icons: {
+    icon: "/favicon.svg"
+  },
 };
 
 export default function RootLayout({
